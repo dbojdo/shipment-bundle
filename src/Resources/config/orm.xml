@@ -5,18 +5,10 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd"
         >
     <parameters>
-        <parameter key="webit_shipment.repository.consignment.class">
-            Webit\Bundle\ShipmentBundle\Repository\ConsignmentEntityRepository
-        </parameter>
-        <parameter key="webit_shipment.repository.parcel.class">
-            Webit\Bundle\ShipmentBundle\Repository\ParcelEntityRepository
-        </parameter>
-        <parameter key="webit_shipment.repository.dispatch_confirmation.class">
-            Webit\Bundle\ShipmentBundle\Repository\DispatchConfirmationEntityRepository
-        </parameter>
-        <parameter key="webit_shipment.subscriber.consignment_vendor_fetcher.class">
-            Webit\Bundle\ShipmentBundle\Listener\ConsignmentVendorFetcher
-        </parameter>
+        <parameter key="webit_shipment.repository.consignment.class">Webit\Bundle\ShipmentBundle\Repository\ConsignmentEntityRepository</parameter>
+        <parameter key="webit_shipment.repository.parcel.class">Webit\Bundle\ShipmentBundle\Repository\ParcelEntityRepository</parameter>
+        <parameter key="webit_shipment.repository.dispatch_confirmation.class">Webit\Bundle\ShipmentBundle\Repository\DispatchConfirmationEntityRepository</parameter>
+        <parameter key="webit_shipment.subscriber.consignment_vendor_fetcher.class">Webit\Bundle\ShipmentBundle\Listener\ConsignmentVendorFetcherSubscriber</parameter>
     </parameters>
     <services>
         <service
@@ -45,7 +37,7 @@
         </service>
         <service
                 id="webit_shipment.subscriber.consignment_vendor_fetcher"
-                class="webit_shipment.subscriber.consignment_vendor_fetcher.class"
+                class="%webit_shipment.subscriber.consignment_vendor_fetcher.class%"
                 >
             <argument type="service" id="webit_shipment.repository.vendor"/>
             <tag name="doctrine.event_subscriber"/>

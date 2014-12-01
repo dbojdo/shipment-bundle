@@ -6,6 +6,7 @@
  
 namespace Webit\Bundle\ShipmentBundle\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -28,6 +29,7 @@ class WebitShipmentExtension extends Extension
         $this->setEntityMap($container, $config['orm']['entities']);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('shipment.xml');
         $loader->load('vendor.xml');
         $loader->load('orm.xml');
     }

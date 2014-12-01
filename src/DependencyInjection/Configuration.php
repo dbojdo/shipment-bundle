@@ -22,21 +22,24 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('webit_shipment');
+
         $rootNode
         ->children()
             ->arrayNode('orm')
                 ->children()
                     ->arrayNode('entities')
-                        ->scalarNode('consignment')->defaultValue('Webit\Bundle\ShipmentBundle\Entity\Consignment')->cannotBeEmpty()->end()
-                        ->scalarNode('parcel')->defaultValue('Webit\Bundle\ShipmentBundle\Entity\Parcel')->cannotBeEmpty()->end()
-                        ->scalarNode('dispatch_confirmation')->defaultValue('Webit\Bundle\ShipmentBundle\Entity\DispatchConfirmation')->cannotBeEmpty()->end()
-                        ->scalarNode('sender_address')->isRequired()->cannotBeEmpty()->end()
-                        ->scalarNode('delivery_address')->isRequired()->cannotBeEmpty()->end()
+                        ->children()
+                            ->scalarNode('consignment')->defaultValue('Webit\Bundle\ShipmentBundle\Entity\Consignment')->cannotBeEmpty()->end()
+                            ->scalarNode('parcel')->defaultValue('Webit\Bundle\ShipmentBundle\Entity\Parcel')->cannotBeEmpty()->end()
+                            ->scalarNode('dispatch_confirmation')->defaultValue('Webit\Bundle\ShipmentBundle\Entity\DispatchConfirmation')->cannotBeEmpty()->end()
+                            ->scalarNode('sender_address')->isRequired()->cannotBeEmpty()->end()
+                            ->scalarNode('delivery_address')->isRequired()->cannotBeEmpty()->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end()
         ->end();
 
-        return $rootNode;
+        return $treeBuilder;
     }
 }

@@ -6,13 +6,12 @@
         >
     <parameters>
         <parameter key="webit_shipment.repository.vendor.in_memory.class">Webit\Shipment\Vendor\VendorRepositoryInMemory</parameter>
-        <parameter key="webit_shipment.repository.vendor.in_memory.factory.class">Webit\Shipment\Vendor\VendorRepositoryInMemoryFactory</parameter>
+        <parameter key="webit_shipment.repository.vendor.in_memory_factory.class">Webit\Shipment\Vendor\VendorRepositoryInMemoryFactory</parameter>
     </parameters>
     <services>
         <service
                 id="webit_shipment.repository.vendor.in_memory_factory"
                 class="%webit_shipment.repository.vendor.in_memory_factory.class%"
-                public="false"
         />
         <service
                 id="webit_shipment.repository.vendor.in_memory"

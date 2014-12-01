@@ -18,11 +18,11 @@ class ResolveTargetEntityPass implements CompilerPassInterface
     /**
      * @var array
      */
-    private $entityMap;
+    private $mapParameter;
 
-    public function __construct(array $entityMap)
+    public function __construct($mapParameter)
     {
-        $this->entityMap = $entityMap;
+        $this->mapParameter = $mapParameter;
     }
 
     /**
@@ -40,7 +40,9 @@ class ResolveTargetEntityPass implements CompilerPassInterface
         }
 
         $resolveTargetEntityListener = $container->findDefinition('doctrine.orm.listeners.resolve_target_entity');
-        foreach ($this->entityMap as $interface => $targetEntity) {
+        $entityMap = $container->getParameter($this->mapParameter);
+
+        foreach ($entityMap as $interface => $targetEntity) {
             $resolveTargetEntityListener
                 ->addMethodCall('addResolveTargetEntity', array(
                     $interface,

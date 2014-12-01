@@ -20,8 +20,7 @@ class WebitShipmentBundle extends Bundle
     public function build(ContainerBuilder $container) {
         parent::build($container);
 
-        $map = $container->get('webit_shipment.entity_map');
-        $container->addCompilerPass(new ResolveTargetEntityPass($map));
+        $container->addCompilerPass(new ResolveTargetEntityPass('webit_shipment.entity_map'));
         $container->addCompilerPass(new VendorAdapterPass());
     }
 }
