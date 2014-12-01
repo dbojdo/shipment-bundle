@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd"
+        >
+    <parameters>
+        <parameter key="webit_shipment.repository.consignment.class">
+            Webit\Bundle\ShipmentBundle\Repository\ConsignmentEntityRepository
+        </parameter>
+        <parameter key="webit_shipment.repository.parcel.class">
+            Webit\Bundle\ShipmentBundle\Repository\ParcelEntityRepository
+        </parameter>
+        <parameter key="webit_shipment.repository.dispatch_confirmation.class">
+            Webit\Bundle\ShipmentBundle\Repository\DispatchConfirmationEntityRepository
+        </parameter>
+        <parameter key="webit_shipment.subscriber.consignment_vendor_fetcher.class">
+            Webit\Bundle\ShipmentBundle\Listener\ConsignmentVendorFetcher
+        </parameter>
+    </parameters>
+    <services>
+        <service
+                id="webit_shipment.repository.consignment"
+                class="%webit_shipment.repository.consignment.class%"
+                factory-service="doctrine"
+                factory-method="getRepository"
+                >
+            <argument>Webit\Shipment\Consignment\ConsignmentInterface</argument>
+        </service>
+        <service
+                id="webit_shipment.repository.parcel"
+                class="%webit_shipment.repository.parcel.class%"
+                factory-service="doctrine"
+                factory-method="getRepository"
+                >
+            <argument>Webit\Shipment\Parcel\ParcelInterface</argument>
+        </service>
+        <service
+                id="webit_shipment.repository.dispatch_confirmation"
+                class="%webit_shipment.repository.dispatch_confirmation.class%"
+                factory-service="doctrine"
+                factory-method="getRepository"
+                >
+            <argument>Webit\Shipment\Consignment\DispatchConfirmationInterface</argument>
+        </service>
+        <service
+                id="webit_shipment.subscriber.consignment_vendor_fetcher"
+                class="webit_shipment.subscriber.consignment_vendor_fetcher.class"
+                >
+            <argument type="service" id="webit_shipment.repository.vendor"/>
+            <tag name="doctrine.event_subscriber"/>
+        </service>
+    </services>
+</container>
