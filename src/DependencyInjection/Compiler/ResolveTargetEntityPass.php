@@ -40,17 +40,23 @@ class ResolveTargetEntityPass implements CompilerPassInterface
         }
 
         $resolveTargetEntityListener = $container->findDefinition('doctrine.orm.listeners.resolve_target_entity');
+
         $entityMap = $container->getParameter($this->mapParameter);
 
-        foreach ($entityMap as $interface => $targetEntity) {
+        foreach ($entityMap as $key => $mapEntry) {
             $resolveTargetEntityListener
                 ->addMethodCall('addResolveTargetEntity', array(
-                    $interface,
-                    $targetEntity,
+                    $mapEntry['interface'],
+                    $mapEntry['target_entity'],
                     array()
                 ))
             ;
+
+            $repoService = sprintf('webit_shipment.repository.%s', $key);
+            if ($container->has($repoService)) {
+                $repo = $container->findDefinition($repoService);
+                $repo->setArguments(array($mapEntry['target_entity']));
+            }
         }
     }
 }
- 

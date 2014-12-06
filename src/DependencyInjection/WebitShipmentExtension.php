@@ -46,7 +46,7 @@ class WebitShipmentExtension extends Extension
 
         $entityMap = array();
         foreach ($interfaceMap as $key => $interface) {
-            $entityMap[$interface] = $entityConfig[$key];
+            $entityMap[$key] = array('interface' => $interface, 'target_entity' => $entityConfig[$key]);
         }
 
         $container->setParameter('webit_shipment.entity_map', $entityMap);

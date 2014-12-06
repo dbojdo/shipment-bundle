@@ -30,7 +30,7 @@ class ConsignmentEntityRepository extends EntityRepository implements Consignmen
 
     /**
      * @param FilterCollection $filters
-     * @param SorterCollection $sorters
+     9* @param SorterCollection $sorters
      * @param int $limit
      * @param int $offset
      * @return ArrayCollection

@@ -20,7 +20,9 @@
         "webit/shipment": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.2"
+        "phpunit/phpunit": "~4.2",
+        "behat/behat": "~3.0",
+        "behat/symfony2-extension": "~2.0"
     },
     "autoload": {
         "psr-4": {

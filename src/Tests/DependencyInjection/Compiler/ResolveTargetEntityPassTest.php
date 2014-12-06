@@ -22,8 +22,8 @@ class ResolveTargetEntityPassTest extends \PHPUnit_Framework_TestCase
     public function shouldAddResolvedEntities()
     {
         $map = array(
-            'interface1' => 'class1',
-            'interface2' => 'class2'
+            'i1' => array('interface' => 'interface1', 'target_entity' => 'class1'),
+            'i2' => array('interface' => 'interface2', 'target_entity' => 'class2'),
         );
 
         $resolverDefinition = $this->createResolverDefinition();
@@ -46,6 +46,8 @@ class ResolveTargetEntityPassTest extends \PHPUnit_Framework_TestCase
             );
 
         $container = $this->createContainer();
+        $container->expects($this->once())->method('getParameter')->with($this->equalTo('map_config_key'))->willReturn($map);
+
         $container->expects($this->once())
                     ->method('hasDefinition')
                     ->with($this->equalTo('doctrine.orm.listeners.resolve_target_entity'))
@@ -56,7 +58,7 @@ class ResolveTargetEntityPassTest extends \PHPUnit_Framework_TestCase
                     ->with($this->equalTo('doctrine.orm.listeners.resolve_target_entity'))
                     ->willReturn($resolverDefinition);
 
-        $compiler = new ResolveTargetEntityPass($map);
+        $compiler = new ResolveTargetEntityPass('map_config_key');
         $compiler->process($container);
     }
 

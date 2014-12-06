@@ -8,9 +8,9 @@
 >
 
     <entity
-        name="Webit\Bundle\ShipmentBundle\Entity\DispatchConfirmation"
+        name="Webit\Bundle\ShipmentBundle\Entity\Parcel"
         table="webit_shipment_dispatch_confirmation"
-        repository-class="Webit\Bundle\ShipmentBundle\Repository\DispatchConfirmationEntityRepository"
+        repository-class="Webit\Bundle\ShipmentBundle\Repository\ParcelEntityRepository"
     >
 
         <id name="id" type="integer" column="id">

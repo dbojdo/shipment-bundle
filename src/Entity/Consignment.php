@@ -31,7 +31,9 @@ class Consignment extends BaseConsignment
 
     public function onPostLoad()
     {
-        $this->vendor = $this->vendorCode;
+        if (! $this->vendor) {
+            $this->vendor = $this->vendorCode;
+        }
     }
 
     public function updateVendorCode()
