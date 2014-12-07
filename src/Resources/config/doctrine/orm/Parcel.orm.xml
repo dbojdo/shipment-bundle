@@ -19,9 +19,7 @@
 
         <field name="number" type="string" column="number" length="32" nullable="true" />
         <field name="reference" type="string" column="vendor" length="128" nullable="true" />
-        <field name="weight" type="decimal" scale="2" precision="8" column="weight" nullable="true">
-            <gedmo:timestampable on="create"/>
-        </field>
+        <field name="weight" type="decimal" scale="2" precision="8" column="weight" nullable="true" />
         <field name="status" type="string" column="status" length="32" nullable="true" />
         <field name="vendorStatus" type="string" column="vendor_status" length="32" nullable="true" />
         <field name="vendorOptions" type="object" column="vendor_options" nullable="true" />
