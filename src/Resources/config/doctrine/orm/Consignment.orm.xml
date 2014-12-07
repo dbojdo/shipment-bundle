@@ -11,7 +11,7 @@
             table="webit_shipment_consignment"
             repository-class="Webit\Bundle\ShipmentBundle\Repository\ConsignmentEntityRepository">
         <indexes>
-            <index name="status" columns="status_idx"/>
+            <index name="status_idx" columns="status"/>
         </indexes>
 
         <unique-constraints>

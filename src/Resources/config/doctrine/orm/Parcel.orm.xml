@@ -9,7 +9,7 @@
 
     <entity
         name="Webit\Bundle\ShipmentBundle\Entity\Parcel"
-        table="webit_shipment_dispatch_confirmation"
+        table="webit_shipment_parcel"
         repository-class="Webit\Bundle\ShipmentBundle\Repository\ParcelEntityRepository"
     >
 
