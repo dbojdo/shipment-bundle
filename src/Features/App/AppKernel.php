@@ -24,6 +24,8 @@ class AppKernel  extends Kernel
     public function __construct($environment, $debug)
     {
         parent::__construct($environment, $debug);
+
+        \Doctrine\Common\Annotations\AnnotationRegistry::registerFile(__DIR__ . '/../../../vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
         $this->hash = $this->generateHash();
     }
 
@@ -52,8 +54,8 @@ class AppKernel  extends Kernel
     {
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Webit\Bundle\ShipmentBundle\WebitShipmentBundle()
+            new Webit\Bundle\ShipmentBundle\WebitShipmentBundle(),
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle()
         );
 
         return $bundles;

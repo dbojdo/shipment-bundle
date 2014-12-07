@@ -17,6 +17,8 @@
                 factory-service="doctrine"
                 factory-method="getRepository"
                 >
+            <!-- Replaced by ResolveTargetEntityPass -->
+            <argument>Webit\Shipment\Consignment\ConsignmentInterface</argument>
         </service>
         <service
                 id="webit_shipment.repository.parcel"
@@ -24,6 +26,8 @@
                 factory-service="doctrine"
                 factory-method="getRepository"
                 >
+            <!-- Replaced by ResolveTargetEntityPass -->
+            <argument>Webit\Shipment\Parcel\ParcelInterface</argument>
         </service>
         <service
                 id="webit_shipment.repository.dispatch_confirmation"
@@ -31,6 +35,8 @@
                 factory-service="doctrine"
                 factory-method="getRepository"
                 >
+            <!-- Replaced by ResolveTargetEntityPass -->
+            <argument>Webit\Shipment\Consignment\DispatchConfirmationInterface</argument>
         </service>
         <service
                 id="webit_shipment.subscriber.consignment_vendor_fetcher"

@@ -8,13 +8,27 @@
 
 namespace Webit\Bundle\ShipmentBundle\Features\MockEntity;
 
+use Doctrine\ORM\Mapping as ORM;
 
 use Webit\Addressing\Model\CountryAwareAddress;
 use Webit\Shipment\Address\DeliveryAddressInterface;
 use Webit\Shipment\Address\SenderAddressInterface;
 
+/**
+ * Class Address
+ * @ORM\Entity
+ * @package Webit\Bundle\ShipmentBundle\Features\MockEntity
+ */
 class Address extends CountryAwareAddress implements SenderAddressInterface, DeliveryAddressInterface
 {
+
+    /**
+     * @var int
+     * @ORM\Id
+     * @ORM\Column(name="id")
+     */
+    private $id;
+
     /**
      * @return string
      */

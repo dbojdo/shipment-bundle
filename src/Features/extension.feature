@@ -3,7 +3,7 @@ Feature: WebitShipmentBundle - Service container extension
   As a developer
   I want register Shipment libraries services in Container
 
-  Scenario: Loading services
+  Background:
     Given application config contains:
     """
     doctrine:
@@ -18,6 +18,11 @@ Feature: WebitShipmentBundle - Service container extension
                     type: xml
                     prefix: Webit\Bundle\ShipmentBundle\Entity
                     dir: %kernel.root_dir%/../../Resources/config/doctrine/orm
+                WebitShipmentTest:
+                    type: annotation
+                    prefix: Webit\Bundle\ShipmentBundle\Features\MockEntity
+                    dir: %kernel.root_dir%/../../Features/MockEntity
+                    is_bundle: false
 
     webit_shipment:
         orm:
@@ -25,7 +30,9 @@ Feature: WebitShipmentBundle - Service container extension
                 sender_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
                 delivery_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
     """
-    And application is up
+
+  Scenario: Loading services
+    When application is up
     Then there should be following services in container:
     """
     webit_shipment.manager.default, webit_shipment.vendor_adapter_provider,
@@ -33,3 +40,7 @@ Feature: WebitShipmentBundle - Service container extension
     webit_shipment.repository.consignment, webit_shipment.repository.parcel,
     webit_shipment.repository.dispatch_confirmation, webit_shipment.subscriber.consignment_vendor_fetcher
     """
+
+    Scenario: Entity mapping
+      When application is up
+      Then there should be valid mapping

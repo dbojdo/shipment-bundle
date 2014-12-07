@@ -28,10 +28,13 @@ Add following lines:
 // in AppKernel::registerBundles()
 $bundles = array(
     // ...
-    new Webit\Bundle\ShipmentBundle\WebitShipmentBundle()
+    new Webit\Bundle\ShipmentBundle\WebitShipmentBundle(),
+    new Doctrine\Bundle\DoctrineBundle\DoctrineBundle()
     // ...
 );
 ```
+
+***Notice:*** Remember to add WebitShipmentBundle ***before*** DoctrineBundle (because of Target Entity Resolver)
 
 ## Configuration
 You can define as much accounts as you need (ADE Accounts and Track & Trace as well)
@@ -63,5 +66,5 @@ doctrine:
                 prefix: Webit\Bundle\ShipmentBundle\Entity
                 dir: %kernel.root_dir%/../vendor/webit/shipment-bundle/src/Resources/config/doctrine/orm
 ```
- 
+
 To learn more about ***shipment library*** see [https://github.com/dbojdo/shipment](https://github.com/dbojdo/shipment "Shipment Library")

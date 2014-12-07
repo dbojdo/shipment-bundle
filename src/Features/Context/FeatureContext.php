@@ -7,6 +7,10 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
+use Doctrine\Bundle\DoctrineBundle\ManagerConfigurator;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\SchemaValidator;
 use PHPUnit_Framework_Assert as Assert;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -71,6 +75,26 @@ class FeatureContext implements Context, SnippetAcceptingContext, KernelAwareCon
                     throw new \Exception(sprintf('Error during getting "%s" from container: %s %s', $serviceName, $e->getMessage(), $e->getTraceAsString()), null, $e);
                 }
             }
+        }
+    }
+
+    /**
+     * @Then there should be valid mapping
+     */
+    public function thereShouldBeValidMapping()
+    {
+        /** @var EntityManager $doctrine */
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $validator = new SchemaValidator($em);
+        $errors = $validator->validateMapping();
+
+        if ($errors) {
+            $arMsg = array();
+            foreach ($errors as $entity => $entityErrors) {
+                $arMsg[] = sprintf("%s:\n", $entity) . implode("\n", $entityErrors);
+            }
+
+            throw new \LogicException("Invalid mappings: \n". implode("\n", $arMsg));
         }
     }
 

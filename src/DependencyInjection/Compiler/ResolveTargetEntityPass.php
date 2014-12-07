@@ -39,7 +39,7 @@ class ResolveTargetEntityPass implements CompilerPassInterface
             throw new \RuntimeException('Cannot find Doctrine RTEL');
         }
 
-        $resolveTargetEntityListener = $container->findDefinition('doctrine.orm.listeners.resolve_target_entity');
+        $resolveTargetEntityListener = $container->getDefinition('doctrine.orm.listeners.resolve_target_entity');
 
         $entityMap = $container->getParameter($this->mapParameter);
 
@@ -55,8 +55,12 @@ class ResolveTargetEntityPass implements CompilerPassInterface
             $repoService = sprintf('webit_shipment.repository.%s', $key);
             if ($container->has($repoService)) {
                 $repo = $container->findDefinition($repoService);
-                $repo->setArguments(array($mapEntry['target_entity']));
+                $repo->replaceArgument(0, $mapEntry['target_entity']);
             }
+        }
+
+        if (!$resolveTargetEntityListener->hasTag('doctrine.event_listener')) {
+            $resolveTargetEntityListener->addTag('doctrine.event_listener', array('event' => 'loadClassMetadata'));
         }
     }
 }
