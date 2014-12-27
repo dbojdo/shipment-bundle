@@ -16,6 +16,7 @@
         >
             <argument type="service" id="webit_shipment.vendor_adapter_provider" />
             <argument type="service" id="webit_shipment.repository.consignment" />
+            <argument type="service" id="webit_shipment.repository.dispatch_confirmation" />
             <argument type="service" id="event_dispatcher" />
         </service>
         <service id="webit_shipment.manager" alias="webit_shipment.manager.default" />

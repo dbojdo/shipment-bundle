@@ -41,4 +41,14 @@ class ParcelEntityRepository extends EntityRepository implements ParcelRepositor
 
         return $query->getOneOrNullResult();
     }
+
+    /**
+     * @return ParcelInterface
+     */
+    public function createParcel()
+    {
+        $class = $this->getClassName();
+
+        return new $class;
+    }
 }
