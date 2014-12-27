@@ -65,5 +65,22 @@ class DispatchConfirmationEntityRepository extends EntityRepository implements D
         }
     }
 
+    /**
+     * @return DispatchConfirmationInterface
+     */
+    public function createDispatchConfirmation()
+    {
+        $class = $this->getClassName();
+        return new $class;
+    }
+
+    /**
+     * @param DispatchConfirmationInterface $dispatchConfirmation
+     */
+    public function saveDispatchConfirmation(DispatchConfirmationInterface $dispatchConfirmation)
+    {
+        if (! $this->_em->contains($dispatchConfirmation)) {
+            $this->_em->persist($dispatchConfirmation);
+        }
+    }
 }
- 
