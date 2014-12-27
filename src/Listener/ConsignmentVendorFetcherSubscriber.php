@@ -3,30 +3,30 @@
  * File: ConsignmentVendorFetcherSubscriber.php
  * Created at: 2014-11-30 19:31
  */
- 
+
 namespace Webit\Bundle\ShipmentBundle\Listener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Component\DependencyInjection\ContainerAware;
 use Webit\Bundle\ShipmentBundle\Entity\Consignment;
-use Webit\Shipment\Vendor\VendorInterface;
 use Webit\Shipment\Vendor\VendorRepositoryInterface;
 
 /**
  * Class ConsignmentVendorFetcherSubscriber
  * @author Daniel Bojdo <daniel.bojdo@web-it.eu>
  */
-class ConsignmentVendorFetcherSubscriber implements EventSubscriber
+class ConsignmentVendorFetcherSubscriber extends ContainerAware implements EventSubscriber
 {
-    /**
-     * @var VendorRepositoryInterface
-     */
-    private $vendorRepository;
 
-    public function __construct(VendorRepositoryInterface $vendorRepository)
+    /**
+     * @return VendorRepositoryInterface
+     */
+    private function getVendorRepository()
     {
-        $this->vendorRepository = $vendorRepository;
+        return $this->container->get('webit_shipment.repository.vendor');
     }
+
 
     /**
      * @return array
@@ -46,7 +46,7 @@ class ConsignmentVendorFetcherSubscriber implements EventSubscriber
         $entity = $event->getEntity();
         if ($entity instanceof Consignment) {
             $vendorCode = $this->getVendorCode($entity);
-            if ($vendorCode && $vendor = $this->vendorRepository->getVendor($vendorCode)) {
+            if ($vendorCode && $vendor = $this->getVendorRepository()->getVendor($vendorCode)) {
                 $entity->setVendor($vendor);
             }
         }

@@ -30,7 +30,7 @@ class VendorAdapterPassTest extends \PHPUnit_Framework_TestCase
         $container->expects($this->once())
             ->method('findTaggedServiceIds')
             ->with($this->equalTo('webit_shipment.vendor_adapter'))
-            ->willReturn(array('service1', 'service2'));
+            ->willReturn(array('service1' => array(), 'service2' => array()));
 
         $container->expects($this->at(0))
             ->method('getDefinition')

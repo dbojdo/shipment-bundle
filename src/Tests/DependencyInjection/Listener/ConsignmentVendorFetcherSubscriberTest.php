@@ -7,6 +7,7 @@
 namespace Webit\Bundle\ShipmentBundle\Tests\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Webit\Bundle\ShipmentBundle\Entity\Consignment;
 use Webit\Bundle\ShipmentBundle\Listener\ConsignmentVendorFetcherSubscriber;
 use Webit\Shipment\Vendor\VendorInterface;
@@ -48,7 +49,12 @@ class ConsignmentVendorFetcherSubscriberTest extends \PHPUnit_Framework_TestCase
         $event = $this->createEvent();
         $event->expects($this->once())->method('getEntity')->willReturn($consignment);
 
-        $listener = new ConsignmentVendorFetcherSubscriber($vendorRepository);
+        $container = $this->createContainer();
+        $container->expects($this->any())->method('get')->willReturn($vendorRepository);
+
+        $listener = new ConsignmentVendorFetcherSubscriber();
+        $listener->setContainer($container);
+
         $listener->postLoad($event);
     }
 
@@ -92,5 +98,15 @@ class ConsignmentVendorFetcherSubscriberTest extends \PHPUnit_Framework_TestCase
         $consignment = $this->getMock('Webit\Bundle\ShipmentBundle\Entity\Consignment');
 
         return $consignment;
+    }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject|ContainerInterface
+     */
+    private function createContainer()
+    {
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+
+        return $container;
     }
 }

@@ -54,7 +54,7 @@ class ResolveTargetEntityPassTest extends \PHPUnit_Framework_TestCase
                     ->willReturn(true);
 
         $container->expects($this->once())
-                    ->method('findDefinition')
+                    ->method('getDefinition')
                     ->with($this->equalTo('doctrine.orm.listeners.resolve_target_entity'))
                     ->willReturn($resolverDefinition);
 

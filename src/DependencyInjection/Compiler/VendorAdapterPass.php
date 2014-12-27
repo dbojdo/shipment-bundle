@@ -30,7 +30,7 @@ class VendorAdapterPass implements CompilerPassInterface
         $vendorRepositoryFactory = $container->getDefinition('webit_shipment.repository.vendor.in_memory_factory');
 
         $adapters = $container->findTaggedServiceIds('webit_shipment.vendor_adapter');
-        foreach ($adapters as $adapter) {
+        foreach ($adapters as $adapter => $tags) {
             $provider->addMethodCall('registerVendorAdapter', array(new Reference($adapter)));
             $vendorRepositoryFactory->addMethodCall('addVendorFactory', array(new Reference($adapter)));
         }
