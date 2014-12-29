@@ -35,7 +35,7 @@
         <field name="status" type="string" column="status" length="32" nullable="true" />
         <field name="reference" type="string" column="reference" length="128" nullable="true" />
         <field name="cod" type="boolean" column="cod" nullable="false" />
-        <field name="cod_amount" type="decimal" column="cod_amount" nullable="true" />
+        <field name="cod_amount" type="decimal" column="cod_amount" scale="2" precision="10" nullable="true" />
         <field name="anonymous" type="boolean" column="anonymous" nullable="false" />
 
         <field name="createdAt" type="datetime" column="created_at">
