@@ -17,6 +17,14 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
  */
 class WebitShipmentExtension extends Extension
 {
+    private static $interfaceMap = array(
+        'consignment' => 'Webit\Shipment\Consignment\ConsignmentInterface',
+        'parcel' => 'Webit\Shipment\Parcel\ParcelInterface',
+        'dispatch_confirmation' =>'Webit\Shipment\Consignment\DispatchConfirmationInterface',
+        'sender_address' => 'Webit\Shipment\Address\SenderAddressInterface',
+        'delivery_address' => 'Webit\Shipment\Address\DeliveryAddressInterface',
+    );
+
     /**
      * @param array $configs
      * @param ContainerBuilder $container
@@ -26,30 +34,38 @@ class WebitShipmentExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $this->setEntityMap($container, $config['orm']['entities']);
+        $this->setEntityMap($container, $config['model_map']);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('shipment.xml');
         $loader->load('vendor.xml');
         $loader->load('orm.xml');
+
+        if ($config['jms_serializer'] == true) {
+            $loader->load('jms_serializer.xml');
+            $this->configJmsSerializer($config, $container);
+        }
     }
 
     private function setEntityMap(ContainerBuilder $container, array $entityConfig)
     {
-        $interfaceMap = array(
-            'consignment' => 'Webit\Shipment\Consignment\ConsignmentInterface',
-            'parcel' => 'Webit\Shipment\Parcel\ParcelInterface',
-            'dispatch_confirmation' =>'Webit\Shipment\Consignment\DispatchConfirmationInterface',
-            'sender_address' => 'Webit\Shipment\Address\SenderAddressInterface',
-            'delivery_address' => 'Webit\Shipment\Address\DeliveryAddressInterface',
-        );
-
         $entityMap = array();
-        foreach ($interfaceMap as $key => $interface) {
+        foreach (self::$interfaceMap as $key => $interface) {
             $entityMap[$key] = array('interface' => $interface, 'target_entity' => $entityConfig[$key]);
         }
 
         $container->setParameter('webit_shipment.entity_map', $entityMap);
+    }
+
+    private function configJmsSerializer(array $config, ContainerBuilder $container)
+    {
+        $classMap = array();
+        foreach (self::$interfaceMap as $key => $interface) {
+            $classMap[$interface] = $config['model_map'][$key];
+        }
+
+        $modelHandler = $container->getDefinition('webit_shipment.serializer.model_handler');
+        $modelHandler->addArgument($classMap);
     }
 }
  

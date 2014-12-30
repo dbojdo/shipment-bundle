@@ -55,6 +55,7 @@ class AppKernel  extends Kernel
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Webit\Bundle\ShipmentBundle\WebitShipmentBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle()
         );
 

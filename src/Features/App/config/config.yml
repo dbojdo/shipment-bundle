@@ -19,9 +19,18 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        mappings:
+            WebitShipmentBundle:
+                type: xml
+                prefix: Webit\Bundle\ShipmentBundle\Entity
+                dir: %kernel.root_dir%/../../Resources/config/doctrine/orm
+            WebitShipmentTest:
+                type: annotation
+                prefix: Webit\Bundle\ShipmentBundle\Features\MockEntity
+                dir: %kernel.root_dir%/../../Features/MockEntity
+                is_bundle: false
 
 webit_shipment:
-    orm:
-        entities:
-            sender_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
-            delivery_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
+    model_map:
+        sender_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
+        delivery_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address

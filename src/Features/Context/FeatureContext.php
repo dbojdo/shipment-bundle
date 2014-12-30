@@ -11,6 +11,7 @@ use Doctrine\Bundle\DoctrineBundle\ManagerConfigurator;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaValidator;
+use Metadata\Driver\FileLocator;
 use PHPUnit_Framework_Assert as Assert;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -96,6 +97,17 @@ class FeatureContext implements Context, SnippetAcceptingContext, KernelAwareCon
 
             throw new \LogicException("Invalid mappings: \n". implode("\n", $arMsg));
         }
+    }
+
+    /**
+     * @Then there should be valid metadata directory for namespace :arg1
+     */
+    public function thereShouldBeValidMetadataDirectoryForNamespace($namespace)
+    {
+        /** @var FileLocator $locator */
+        $locator = $this->getContainer()->get('jms_serializer.metadata.file_locator');
+        $dirs = $locator->getDirs();
+        die(var_dump($dirs));
     }
 
     /**

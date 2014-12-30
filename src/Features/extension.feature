@@ -6,29 +6,11 @@ Feature: WebitShipmentBundle - Service container extension
   Background:
     Given application config contains:
     """
-    doctrine:
-        dbal:
-            driver:   pdo_sqlite
-            charset:  UTF8
-        orm:
-            auto_generate_proxy_classes: %kernel.debug%
-            auto_mapping: true
-            mappings:
-                WebitShipmentBundle:
-                    type: xml
-                    prefix: Webit\Bundle\ShipmentBundle\Entity
-                    dir: %kernel.root_dir%/../../Resources/config/doctrine/orm
-                WebitShipmentTest:
-                    type: annotation
-                    prefix: Webit\Bundle\ShipmentBundle\Features\MockEntity
-                    dir: %kernel.root_dir%/../../Features/MockEntity
-                    is_bundle: false
-
     webit_shipment:
-        orm:
-            entities:
-                sender_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
-                delivery_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
+        model_map:
+            sender_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
+            delivery_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
+        orm: true
     """
 
   Scenario: Loading services
@@ -41,6 +23,21 @@ Feature: WebitShipmentBundle - Service container extension
     webit_shipment.repository.dispatch_confirmation, webit_shipment.subscriber.consignment_vendor_fetcher
     """
 
-    Scenario: Entity mapping
-      When application is up
-      Then there should be valid mapping
+  Scenario: Entity mapping
+    When application is up
+    Then there should be valid mapping
+
+  Scenario: JMS Serializer support
+    Given application config contains:
+    """
+    webit_shipment:
+        model_map:
+            sender_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
+            delivery_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
+        orm: true
+        jms_serializer: true
+    """
+    Then there should be following services in container:
+    """
+    webit_shipment.serializer.model_handler, webit_shipment.serializer.collection_handler
+    """

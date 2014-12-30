@@ -9,6 +9,7 @@ namespace Webit\Bundle\ShipmentBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Webit\Bundle\ShipmentBundle\DependencyInjection\Compiler\ResolveTargetEntityPass;
+use Webit\Bundle\ShipmentBundle\DependencyInjection\Compiler\SerializerPass;
 use Webit\Bundle\ShipmentBundle\DependencyInjection\Compiler\VendorAdapterPass;
 
 /**
@@ -22,5 +23,6 @@ class WebitShipmentBundle extends Bundle
 
         $container->addCompilerPass(new ResolveTargetEntityPass('webit_shipment.entity_map'));
         $container->addCompilerPass(new VendorAdapterPass());
+        $container->addCompilerPass(new SerializerPass());
     }
 }
