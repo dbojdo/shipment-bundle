@@ -16,9 +16,19 @@ use Webit\Shipment\Vendor\VendorInterface;
 class Consignment extends BaseConsignment
 {
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
      * @var string
      */
     protected $vendorCode;
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @param VendorInterface $vendor

@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Webit\Shipment\Consignment\ConsignmentInterface;
 use Webit\Shipment\Consignment\ConsignmentRepositoryInterface;
+use Webit\Shipment\Parcel\ParcelInterface;
 use Webit\Tools\Data\FilterCollection;
 use Webit\Tools\Data\SorterCollection;
 
@@ -62,6 +63,11 @@ class ConsignmentEntityRepository extends EntityRepository implements Consignmen
     public function saveConsignment(ConsignmentInterface $consignment)
     {
         if ($this->_em->contains($consignment) == false) {
+            /** @var ParcelInterface $parcel */
+            foreach ($consignment->getParcels() as $parcel) {
+                $parcel->setConsignment($consignment);
+            }
+
             $this->_em->persist($consignment);
         }
     }

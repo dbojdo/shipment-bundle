@@ -45,12 +45,6 @@
             <gedmo:timestampable on="update"/>
         </field>
 
-        <one-to-many target-entity="Webit\Shipment\Parcel\ParcelInterface" mapped-by="consignment" field="parcels">
-            <cascade>
-                <cascade-all/>
-            </cascade>
-        </one-to-many>
-
         <many-to-one target-entity="Webit\Shipment\Address\SenderAddressInterface" field="senderAddress">
             <join-column name="sender_address_id" referenced-column-name="id" nullable="true" />
             <cascade>
@@ -64,6 +58,12 @@
                 <cascade-persist/>
             </cascade>
         </many-to-one>
+
+        <one-to-many target-entity="Webit\Shipment\Parcel\ParcelInterface" mapped-by="consignment" field="parcels">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
 
         <many-to-one
                 target-entity="Webit\Shipment\Consignment\DispatchConfirmationInterface"

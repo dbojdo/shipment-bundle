@@ -43,6 +43,9 @@
                 class="%webit_shipment.subscriber.consignment_vendor_fetcher.class%"
                 >
             <argument type="service" id="webit_shipment.repository.vendor"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <tag name="doctrine.event_subscriber"/>
         </service>
     </services>
