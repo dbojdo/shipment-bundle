@@ -23,6 +23,7 @@ class WebitShipmentExtension extends Extension
         'dispatch_confirmation' =>'Webit\Shipment\Consignment\DispatchConfirmationInterface',
         'sender_address' => 'Webit\Shipment\Address\SenderAddressInterface',
         'delivery_address' => 'Webit\Shipment\Address\DeliveryAddressInterface',
+        'vendor' => 'Webit\Shipment\Vendor\VendorInterface'
     );
 
     /**
@@ -50,6 +51,10 @@ class WebitShipmentExtension extends Extension
     private function setEntityMap(ContainerBuilder $container, array $entityConfig)
     {
         $entityMap = array();
+
+        $interfaces = self::$interfaceMap;
+        unset($interfaces['vendor']);
+
         foreach (self::$interfaceMap as $key => $interface) {
             $entityMap[$key] = array('interface' => $interface, 'target_entity' => $entityConfig[$key]);
         }
@@ -68,4 +73,3 @@ class WebitShipmentExtension extends Extension
         $modelHandler->addArgument($classMap);
     }
 }
- 

@@ -42,6 +42,7 @@ class ResolveTargetEntityPass implements CompilerPassInterface
         $resolveTargetEntityListener = $container->getDefinition('doctrine.orm.listeners.resolve_target_entity');
 
         $entityMap = $container->getParameter($this->mapParameter);
+        unset($entityMap['vendor']);
 
         foreach ($entityMap as $key => $mapEntry) {
             $resolveTargetEntityListener

@@ -29,6 +29,7 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('orm')->defaultFalse()->end()
             ->arrayNode('model_map')
                 ->children()
+                    ->scalarNode('vendor')->defaultValue('Webit\Shipment\Vendor\Vendor')->cannotBeEmpty()->end()
                     ->scalarNode('consignment')->defaultValue('Webit\Bundle\ShipmentBundle\Entity\Consignment')->cannotBeEmpty()->end()
                     ->scalarNode('parcel')->defaultValue('Webit\Bundle\ShipmentBundle\Entity\Parcel')->cannotBeEmpty()->end()
                     ->scalarNode('dispatch_confirmation')->defaultValue('Webit\Bundle\ShipmentBundle\Entity\DispatchConfirmation')->cannotBeEmpty()->end()
