@@ -27,7 +27,6 @@ class ConsignmentVendorFetcherSubscriber extends ContainerAware implements Event
         return $this->container->get('webit_shipment.repository.vendor');
     }
 
-
     /**
      * @return array
      */

@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="webit_shipment.repository.vendor.in_memory.class">Webit\Shipment\Vendor\VendorRepositoryInMemory</parameter>
         <parameter key="webit_shipment.repository.vendor.in_memory_factory.class">Webit\Shipment\Vendor\VendorRepositoryInMemoryFactory</parameter>
+        <parameter key="webit_shipment.repository.vendor_repository_initialize_subscriber.class">Webit\Bundle\ShipmentBundle\Listener\VendorRepositoryInitializeSubscriber</parameter>
     </parameters>
     <services>
         <service

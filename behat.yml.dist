@@ -1,13 +1,7 @@
 default:
     calls:
         error_reporting: 16383
-    extensions:
-        Behat\Symfony2Extension:
-            kernel:
-                path: src/Features/App/AppKernel.php
-                env: test
-                debug: true
+
     suites:
-        WebitShipmentBundle:
-            type: symfony_bundle
-            bundle: WebitShipmentBundle
+        bundle_configuration:
+            contexts: [ Webit\Bundle\ShipmentBundle\Features\Bootstrap\ConfigurationContext ]

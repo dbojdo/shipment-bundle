@@ -20,14 +20,19 @@
         "webit/shipment": "dev-master"
     },
     "require-dev": {
+        "webit/test-tools": "*",
         "phpunit/phpunit": "~4.2",
         "behat/behat": "~3.0",
-        "behat/symfony2-extension": "~2.0",
         "jms/serializer-bundle": "~0.12"
     },
     "autoload": {
         "psr-4": {
             "Webit\\Bundle\\ShipmentBundle\\" : "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webit\\Bundle\\ShipmentBundle\\Features\\" : "features"
         }
     },
     "minimum-stability": "dev",

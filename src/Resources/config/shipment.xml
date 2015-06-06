@@ -5,20 +5,27 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd"
         >
     <parameters>
-        <parameter key="webit_shipment.manager.default.class">Webit\Shipment\Manager\ConsignmentManager</parameter>
+        <parameter key="webit_shipment.consignment_manager.default.class">Webit\Shipment\Manager\ConsignmentManager</parameter>
         <parameter key="webit_shipment.vendor_adapter_provider.class">Webit\Shipment\Manager\VendorAdapterProvider</parameter>
+        <parameter key="webit_shipment.print_manager.default.class">Webit\Shipment\Manager\ConsignmentManager</parameter>
     </parameters>
     <services>
         <service id="webit_shipment.vendor_adapter_provider" class="%webit_shipment.vendor_adapter_provider.class%" />
         <service
-            id="webit_shipment.manager.default"
-            class="%webit_shipment.manager.default.class%"
+            id="webit_shipment.consignment_manager.default"
+            class="%webit_shipment.consignment_manager.default.class%"
         >
             <argument type="service" id="webit_shipment.vendor_adapter_provider" />
             <argument type="service" id="webit_shipment.repository.consignment" />
             <argument type="service" id="webit_shipment.repository.dispatch_confirmation" />
             <argument type="service" id="event_dispatcher" />
         </service>
-        <service id="webit_shipment.manager" alias="webit_shipment.manager.default" />
+        <service id="webit_shipment.manager" alias="webit_shipment.consignment_manager.default" />
+        <service id="webit_shipment.consignment_manager" alias="webit_shipment.consignment_manager.default" />
+
+        <service id="webit_shipment.print_manager.default" class="%webit_shipment.print_manager.default.class%">
+            <argument type="service" id="webit_shipment.vendor_adapter_provider" />
+        </service>
+        <service id="webit_shipment.print_manager" alias="webit_shipment.print_manager.default" />
     </services>
 </container>

@@ -46,6 +46,8 @@ class WebitShipmentExtension extends Extension
             $loader->load('jms_serializer.xml');
             $this->configJmsSerializer($config, $container);
         }
+
+        $loader->load('print_controller.xml');
     }
 
     private function setEntityMap(ContainerBuilder $container, array $entityConfig)

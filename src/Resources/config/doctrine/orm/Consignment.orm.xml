@@ -37,6 +37,7 @@
         <field name="cod" type="boolean" column="cod" nullable="false" />
         <field name="codAmount" type="decimal" column="cod_amount" scale="2" precision="10" nullable="true" />
         <field name="anonymous" type="boolean" column="anonymous" nullable="false" />
+        <field name="assigningDate" type="datetime" column="assigning_date" nullable="false" />
 
         <field name="createdAt" type="datetime" column="created_at">
             <gedmo:timestampable on="create"/>
