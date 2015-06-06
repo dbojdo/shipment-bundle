@@ -41,11 +41,14 @@ Feature: WebitShipmentBundle - Service container extension
     webit_shipment.vendor_adapter_provider,
     webit_shipment.repository.vendor.in_memory, webit_shipment.repository.vendor.in_memory_factory,
     webit_shipment.repository.consignment, webit_shipment.repository.parcel,
-    webit_shipment.repository.dispatch_confirmation, webit_shipment.subscriber.consignment_vendor_fetcher
+    webit_shipment.repository.dispatch_confirmation, webit_shipment.subscriber.consignment_vendor_fetcher,
+    webit_shipment.tracking_url_provider.default
     """
     And there should be following aliases defined:
     | service                                    | alias                  |
     | webit_shipment.consignment_manager.default | webit_shipment.manager |
+    | webit_shipment.tracking_url_provider.default | webit_shipment.tracking_url_provider |
+    And all given services should be reachable
 
   Scenario: Entity mapping
     When I bootstrap the application
@@ -66,3 +69,4 @@ Feature: WebitShipmentBundle - Service container extension
     """
     webit_shipment.serializer.model_handler, webit_shipment.serializer.collection_handler
     """
+    And all given services should be reachable

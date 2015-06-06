@@ -36,6 +36,7 @@
         }
     },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "suggest": {
         "jms/serializer-bundle": "JMS Serializer support"
     }

@@ -8,6 +8,7 @@
         <parameter key="webit_shipment.consignment_manager.default.class">Webit\Shipment\Manager\ConsignmentManager</parameter>
         <parameter key="webit_shipment.vendor_adapter_provider.class">Webit\Shipment\Manager\VendorAdapterProvider</parameter>
         <parameter key="webit_shipment.print_manager.default.class">Webit\Shipment\Manager\ConsignmentManager</parameter>
+        <parameter key="webit_shipment.tracking_url_provider.default.class">Webit\Shipment\Manager\TrackingUrlProvider</parameter>
     </parameters>
     <services>
         <service id="webit_shipment.vendor_adapter_provider" class="%webit_shipment.vendor_adapter_provider.class%" />
@@ -22,6 +23,11 @@
         </service>
         <service id="webit_shipment.manager" alias="webit_shipment.consignment_manager.default" />
         <service id="webit_shipment.consignment_manager" alias="webit_shipment.consignment_manager.default" />
+
+        <service id="webit_shipment.tracking_url_provider.default" class="%webit_shipment.tracking_url_provider.default.class%">
+            <argument type="service" id="webit_shipment.vendor_adapter_provider" />
+        </service>
+        <service id="webit_shipment.tracking_url_provider" alias="webit_shipment.tracking_url_provider.default" />
 
         <service id="webit_shipment.print_manager.default" class="%webit_shipment.print_manager.default.class%">
             <argument type="service" id="webit_shipment.vendor_adapter_provider" />
