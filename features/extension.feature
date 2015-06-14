@@ -6,6 +6,12 @@ Feature: WebitShipmentBundle - Service container extension
   Background:
     Given the configuration contains:
     """
+    services:
+        my_cache:
+            class: Doctrine\Common\Cache\FilesystemCache
+            arguments:
+                - %kernel.cache_dir%/shipment-vendors
+
     framework:
         secret: secret-token
 
@@ -28,6 +34,8 @@ Feature: WebitShipmentBundle - Service container extension
                     is_bundle: false
 
     webit_shipment:
+        vendor:
+            cache_service: my_cache
         model_map:
             sender_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
             delivery_address: Webit\Bundle\ShipmentBundle\Features\MockEntity\Address
@@ -39,7 +47,8 @@ Feature: WebitShipmentBundle - Service container extension
     Then there should be following services defined:
     """
     webit_shipment.vendor_adapter_provider,
-    webit_shipment.repository.vendor.in_memory, webit_shipment.repository.vendor.in_memory_factory,
+    webit_shipment.repository.vendor.in_memory, webit_shipment.repository.vendor.factory,
+    webit_shipment.repository.vendor.cached,
     webit_shipment.repository.consignment, webit_shipment.repository.parcel,
     webit_shipment.repository.dispatch_confirmation, webit_shipment.subscriber.consignment_vendor_fetcher,
     webit_shipment.tracking_url_provider.default

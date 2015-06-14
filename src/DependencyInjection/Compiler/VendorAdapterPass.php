@@ -28,12 +28,19 @@ class VendorAdapterPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $provider = $container->getDefinition('webit_shipment.vendor_adapter_provider');
-        $vendorRepositoryFactory = $container->getDefinition('webit_shipment.repository.vendor.in_memory_factory');
+        $vendorRepositoryFactory = $container->getDefinition('webit_shipment.repository.vendor.factory');
 
         $adapters = $container->findTaggedServiceIds('webit_shipment.vendor_adapter');
         foreach ($adapters as $adapter => $tags) {
-            $provider->addMethodCall('registerVendorAdapter', array(new Reference($adapter)));
-            $vendorRepositoryFactory->addMethodCall('addVendorFactory', array(new Reference($adapter)));
+            foreach ($tags as $tag) {
+                $vendor = isset($tag['vendor']) ? $tag['vendor'] : null;
+                if (empty($vendor)) {
+                    throw new \UnexpectedValueException('Missing mandatory tag key "vendor"');
+                }
+
+                $provider->addMethodCall('registerVendorAdapter', array(new Reference($adapter), $vendor));
+                $vendorRepositoryFactory->addMethodCall('addVendorFactory', array(new Reference($adapter), $vendor));
+            }
         }
     }
 }

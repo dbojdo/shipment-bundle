@@ -40,6 +40,13 @@ class WebitShipmentExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('shipment.xml');
         $loader->load('vendor.xml');
+
+        $container->setAlias('webit_shipment.vendor_cache', $config['vendor']['cache_service']);
+
+        if ($config['vendor']['cache_enabled']) {
+            $container->setAlias('webit_shipment.repository.vendor', 'webit_shipment.repository.vendor.cached');
+        }
+
         $loader->load('orm.xml');
 
         if ($config['jms_serializer'] == true) {

@@ -5,21 +5,30 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd"
         >
     <parameters>
+        <parameter key="webit_shipment.repository.vendor.factory.class">Webit\Shipment\Vendor\VendorRepositoryFactory</parameter>
         <parameter key="webit_shipment.repository.vendor.in_memory.class">Webit\Shipment\Vendor\VendorRepositoryInMemory</parameter>
-        <parameter key="webit_shipment.repository.vendor.in_memory_factory.class">Webit\Shipment\Vendor\VendorRepositoryInMemoryFactory</parameter>
+        <parameter key="webit_shipment.repository.vendor.cached.class">Webit\Shipment\Vendor\VendorRepositoryCached</parameter>
         <parameter key="webit_shipment.repository.vendor_repository_initialize_subscriber.class">Webit\Bundle\ShipmentBundle\Listener\VendorRepositoryInitializeSubscriber</parameter>
     </parameters>
     <services>
         <service
-                id="webit_shipment.repository.vendor.in_memory_factory"
-                class="%webit_shipment.repository.vendor.in_memory_factory.class%"
+                id="webit_shipment.repository.vendor.factory"
+                class="%webit_shipment.repository.vendor.factory.class%"
         />
         <service
                 id="webit_shipment.repository.vendor.in_memory"
                 class="%webit_shipment.repository.vendor.in_memory.class%"
-                factory-service="webit_shipment.repository.vendor.in_memory_factory"
-                factory-method="createVendorRepository"
+                factory-service="webit_shipment.repository.vendor.factory"
+                factory-method="createInMemoryRepository"
         />
+        <service
+                id="webit_shipment.repository.vendor.cached"
+                class="%webit_shipment.repository.vendor.cached.class%"
+                factory-service="webit_shipment.repository.vendor.factory"
+                factory-method="createCachedRepository"
+        >
+            <argument type="service" id="webit_shipment.vendor_cache" />
+        </service>
         <service id="webit_shipment.repository.vendor" alias="webit_shipment.repository.vendor.in_memory" />
     </services>
 </container>
