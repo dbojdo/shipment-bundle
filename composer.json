@@ -17,7 +17,7 @@
         "symfony/symfony": "~2.5",
         "doctrine/doctrine-bundle": "~1.4",
         "doctrine/orm": "~2.4",
-        "webit/shipment": "dev-master"
+        "webit/shipment": "1.0.0"
     },
     "require-dev": {
         "webit/test-tools": "*",
