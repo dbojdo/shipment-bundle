@@ -16,6 +16,12 @@
                 id="webit_shipment.serializer.collection_handler"
                 class="%webit_shipment.serializer.collection_handler.class%"
         >
+            <argument type="service">
+                <service class="Webit\Shipment\Serializer\VendorOptionCollectionNormaliser" />
+            </argument>
+            <argument type="service">
+                <service class="Webit\Shipment\Serializer\VendorOptionValueCollectionNormaliser" />
+            </argument>
             <tag name="jms_serializer.subscribing_handler" />
         </service>
     </services>

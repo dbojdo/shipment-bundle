@@ -30,7 +30,7 @@
 
         <field name="vendorCode" type="string" column="vendor" length="32" nullable="false" />
         <field name="vendorId" type="string" column="vendor_id" length="64" nullable="true" />
-        <field name="vendorOptions" type="object" column="vendor_options" nullable="true" />
+        <field name="vendorOptions" type="webit_shipment.vendor_option_value_collection" column="vendor_options" nullable="true" />
         <field name="vendorStatus" type="string" column="vendor_status" length="32" nullable="true" />
         <field name="status" type="string" column="status" length="32" nullable="true" />
         <field name="reference" type="string" column="reference" length="128" nullable="true" />

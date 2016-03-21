@@ -4,7 +4,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
               http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd"
-    xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
 
     <entity
@@ -22,7 +21,7 @@
         <field name="weight" type="decimal" scale="2" precision="8" column="weight" nullable="true" />
         <field name="status" type="string" column="status" length="32" nullable="true" />
         <field name="vendorStatus" type="string" column="vendor_status" length="32" nullable="true" />
-        <field name="vendorOptions" type="object" column="vendor_options" nullable="true" />
+        <field name="vendorOptions" type="webit_shipment.vendor_option_value_collection" column="vendor_options" nullable="true" />
         <many-to-one
             target-entity="Webit\Shipment\Consignment\ConsignmentInterface"
             inversed-by="parcels"
