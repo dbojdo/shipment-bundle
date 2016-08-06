@@ -18,15 +18,14 @@
         <service
                 id="webit_shipment.repository.vendor.in_memory"
                 class="%webit_shipment.repository.vendor.in_memory.class%"
-                factory-service="webit_shipment.repository.vendor.factory"
-                factory-method="createInMemoryRepository"
-        />
+        >
+            <factory service="webit_shipment.repository.vendor.factory" method="createInMemoryRepository" />
+        </service>
         <service
                 id="webit_shipment.repository.vendor.cached"
                 class="%webit_shipment.repository.vendor.cached.class%"
-                factory-service="webit_shipment.repository.vendor.factory"
-                factory-method="createCachedRepository"
         >
+            <factory service="webit_shipment.repository.vendor.factory" method="createCachedRepository" />
             <argument type="service" id="webit_shipment.vendor_cache" />
         </service>
         <service id="webit_shipment.repository.vendor" alias="webit_shipment.repository.vendor.in_memory" />

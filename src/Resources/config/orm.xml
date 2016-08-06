@@ -14,27 +14,24 @@
         <service
                 id="webit_shipment.repository.consignment"
                 class="%webit_shipment.repository.consignment.class%"
-                factory-service="doctrine"
-                factory-method="getRepository"
                 >
+            <factory service="doctrine" method="getRepository" />
             <!-- Replaced by ResolveTargetEntityPass -->
             <argument>Webit\Shipment\Consignment\ConsignmentInterface</argument>
         </service>
         <service
                 id="webit_shipment.repository.parcel"
                 class="%webit_shipment.repository.parcel.class%"
-                factory-service="doctrine"
-                factory-method="getRepository"
                 >
+            <factory service="doctrine" method="getRepository" />
             <!-- Replaced by ResolveTargetEntityPass -->
             <argument>Webit\Shipment\Parcel\ParcelInterface</argument>
         </service>
         <service
                 id="webit_shipment.repository.dispatch_confirmation"
                 class="%webit_shipment.repository.dispatch_confirmation.class%"
-                factory-service="doctrine"
-                factory-method="getRepository"
                 >
+            <factory service="doctrine" method="getRepository" />
             <!-- Replaced by ResolveTargetEntityPass -->
             <argument>Webit\Shipment\Consignment\DispatchConfirmationInterface</argument>
         </service>
