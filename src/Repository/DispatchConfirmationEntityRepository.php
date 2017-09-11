@@ -19,9 +19,7 @@ use Webit\Shipment\Vendor\VendorInterface;
 class DispatchConfirmationEntityRepository extends EntityRepository implements DispatchConfirmationRepositoryInterface
 {
     /**
-     * @param VendorInterface $vendor
-     * @param string $number
-     * @return \Webit\Shipment\Consignment\DispatchConfirmationInterface
+     * @inheritdoc
      */
     public function getDispatchConfirmation(VendorInterface $vendor, $number)
     {
@@ -42,7 +40,7 @@ class DispatchConfirmationEntityRepository extends EntityRepository implements D
     }
 
     /**
-     * @param DispatchConfirmationInterface $dispatchConfirmation
+     * @inheritdoc
      */
     public function updateDispatchConfirmation(DispatchConfirmationInterface $dispatchConfirmation)
     {
@@ -53,20 +51,22 @@ class DispatchConfirmationEntityRepository extends EntityRepository implements D
         if ($this->_em->getUnitOfWork()->getEntityState($dispatchConfirmation) == UnitOfWork::STATE_DETACHED) {
             $this->_em->merge($dispatchConfirmation);
         }
+        $this->_em->flush();
     }
 
     /**
-     * @param DispatchConfirmationInterface $dispatchConfirmation
+     * @inheritdoc
      */
     public function removeDispatchConfirmation(DispatchConfirmationInterface $dispatchConfirmation)
     {
         if (! $this->_em->contains($dispatchConfirmation)) {
             $this->_em->remove($dispatchConfirmation);
         }
+        $this->_em->flush();
     }
 
     /**
-     * @return DispatchConfirmationInterface
+     * @inheritdoc
      */
     public function createDispatchConfirmation()
     {
@@ -75,12 +75,13 @@ class DispatchConfirmationEntityRepository extends EntityRepository implements D
     }
 
     /**
-     * @param DispatchConfirmationInterface $dispatchConfirmation
+     * @inheritdoc
      */
     public function saveDispatchConfirmation(DispatchConfirmationInterface $dispatchConfirmation)
     {
         if (! $this->_em->contains($dispatchConfirmation)) {
             $this->_em->persist($dispatchConfirmation);
         }
+        $this->_em->flush();
     }
 }

@@ -32,12 +32,12 @@
         <field name="vendorId" type="string" column="vendor_id" length="64" nullable="true" />
         <field name="vendorOptions" type="webit_shipment.vendor_option_value_collection" column="vendor_options" nullable="true" />
         <field name="vendorStatus" type="string" column="vendor_status" length="32" nullable="true" />
+        <field name="vendorData" column="vendor_data" type="json_array" nullable="false" />
         <field name="status" type="string" column="status" length="32" nullable="true" />
         <field name="reference" type="string" column="reference" length="128" nullable="true" />
         <field name="cod" type="boolean" column="cod" nullable="false" />
         <field name="codAmount" type="decimal" column="cod_amount" scale="2" precision="10" nullable="true" />
         <field name="anonymous" type="boolean" column="anonymous" nullable="false" />
-        <field name="assigningDate" type="datetime" column="assigning_date" nullable="false" />
 
         <field name="createdAt" type="datetime" column="created_at">
             <gedmo:timestampable on="create"/>

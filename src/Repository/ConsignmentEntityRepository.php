@@ -30,11 +30,7 @@ class ConsignmentEntityRepository extends EntityRepository implements Consignmen
     }
 
     /**
-     * @param FilterCollection $filters
-     9* @param SorterCollection $sorters
-     * @param int $limit
-     * @param int $offset
-     * @return ArrayCollection
+     * @inheritdoc
      */
     public function getConsignments(
         FilterCollection $filters = null,
@@ -48,7 +44,7 @@ class ConsignmentEntityRepository extends EntityRepository implements Consignmen
     }
 
     /**
-     * @return ConsignmentInterface
+     * @inheritdoc
      */
     public function createConsignment()
     {
@@ -58,7 +54,7 @@ class ConsignmentEntityRepository extends EntityRepository implements Consignmen
     }
 
     /**
-     * @param ConsignmentInterface $consignment
+     * @inheritdoc
      */
     public function saveConsignment(ConsignmentInterface $consignment)
     {
@@ -70,15 +66,17 @@ class ConsignmentEntityRepository extends EntityRepository implements Consignmen
 
             $this->_em->persist($consignment);
         }
+        $this->_em->flush();
     }
 
     /**
-     * @param ConsignmentInterface $consignment
+     * @inheritdoc
      */
     public function removeConsignment(ConsignmentInterface $consignment)
     {
         if ($this->_em->contains($consignment)) {
             $this->_em->remove($consignment);
         }
+        $this->_em->flush();
     }
 }
