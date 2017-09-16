@@ -47,6 +47,8 @@ class WebitShipmentExtension extends Extension
             $container->setAlias('webit_shipment.repository.vendor', 'webit_shipment.repository.vendor.cached');
         }
 
+        $container->setAlias('webit_shipment.default_sender_address_provider', $config['default_sender_address_provider']);
+
         $loader->load('orm.xml');
 
         if ($config['jms_serializer'] == true) {

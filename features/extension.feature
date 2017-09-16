@@ -7,6 +7,8 @@ Feature: WebitShipmentBundle - Service container extension
     Given the configuration contains:
     """
     services:
+        void_sender_provider:
+            class: Webit\Bundle\ShipmentBundle\Features\MockEntity\VoidSenderProvider
         my_cache:
             class: Doctrine\Common\Cache\FilesystemCache
             arguments:
@@ -34,6 +36,7 @@ Feature: WebitShipmentBundle - Service container extension
                     is_bundle: false
 
     webit_shipment:
+        default_sender_address_provider: void_sender_provider
         vendor:
             cache_service: my_cache
         model_map:

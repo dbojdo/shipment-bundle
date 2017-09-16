@@ -17,7 +17,7 @@
         </id>
 
         <field name="number" type="string" column="vendor" length="32" nullable="false" />
-        <field name="pickupAt" column="pickup_at" type="datetime" nullable="false" />
+        <field name="pickUpAt" column="pickup_at" type="datetime" nullable="false" />
         <field name="vendorData" column="vendor_data" type="json_array" nullable="false" />
         <field name="courierCalled" column="courier_called" type="boolean" nullable="false" />
         <field name="dispatchedAt" type="datetime" column="dispatched_at">

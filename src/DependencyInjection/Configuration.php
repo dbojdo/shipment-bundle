@@ -33,6 +33,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('cache_enabled')->defaultTrue()->end()
                 ->end()
             ->end()
+            ->scalarNode('default_sender_address_provider')->cannotBeEmpty()->isRequired()->end()
             ->arrayNode('model_map')->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('vendor')->defaultValue('Webit\Shipment\Vendor\Vendor')->cannotBeEmpty()->end()
