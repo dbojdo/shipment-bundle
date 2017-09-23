@@ -7,7 +7,7 @@
     <parameters>
         <parameter key="webit_shipment.consignment_manager.default.class">Webit\Shipment\Manager\ConsignmentManager</parameter>
         <parameter key="webit_shipment.vendor_adapter_provider.class">Webit\Shipment\Manager\VendorAdapterProvider</parameter>
-        <parameter key="webit_shipment.print_manager.default.class">Webit\Shipment\Manager\ConsignmentManager</parameter>
+        <parameter key="webit_shipment.print_manager.default.class">Webit\Shipment\Manager\PrintManager</parameter>
         <parameter key="webit_shipment.tracking_url_provider.default.class">Webit\Shipment\Manager\TrackingUrlProvider</parameter>
     </parameters>
     <services>

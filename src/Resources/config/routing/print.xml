@@ -5,15 +5,15 @@
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <route id="print_dispatch_confirmation_receipt" path="/receipt/{vendorCode}/{number}/print/{mode}">
-        <default key="_controller">webit_shipment.controller_print:getDispatchConfirmationReceipt</default>
+        <default key="_controller">webit_shipment.controller.print:getDispatchConfirmationReceipt</default>
         <default key="mode">view</default>
     </route>
     <route id="print_dispatch_confirmation_labels" path="/labels/{vendorCode}/{number}/print/{mode}">
-        <default key="_controller">webit_shipment.controller_print:getDispatchConfirmationLabels</default>
+        <default key="_controller">webit_shipment.controller.print:getDispatchConfirmationLabels</default>
         <default key="mode">view</default>
     </route>
     <route id="print_consignment_label" path="/label/{consignmentId}/print/{mode}">
-        <default key="_controller">webit_shipment.controller_print:getConsignmentLabel</default>
+        <default key="_controller">webit_shipment.controller.print:getConsignmentLabel</default>
         <default key="mode">view</default>
     </route>
 </routes>

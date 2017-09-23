@@ -38,6 +38,22 @@ class PrintRequestFilter implements EventSubscriberInterface
     private $consignmentRepository;
 
     /**
+     * PrintRequestFilter constructor.
+     * @param VendorRepositoryInterface $vendorRepository
+     * @param DispatchConfirmationRepositoryInterface $dispatchConfirmationRepository
+     * @param ConsignmentRepositoryInterface $consignmentRepository
+     */
+    public function __construct(
+        VendorRepositoryInterface $vendorRepository,
+        DispatchConfirmationRepositoryInterface $dispatchConfirmationRepository,
+        ConsignmentRepositoryInterface $consignmentRepository
+    ) {
+        $this->vendorRepository = $vendorRepository;
+        $this->dispatchConfirmationRepository = $dispatchConfirmationRepository;
+        $this->consignmentRepository = $consignmentRepository;
+    }
+
+    /**
      * Returns an array of event names this subscriber wants to listen to.
      *
      * The array keys are event names and the value can be:
@@ -68,23 +84,24 @@ class PrintRequestFilter implements EventSubscriberInterface
     {
         $controller = $event->getController();
 
-        if (! is_array($controller) || ! ($controller[0] instanceof PrintController)) {
+        if (!is_array($controller) || !($controller[0] instanceof PrintController)) {
             return false;
         }
 
         $request = $event->getRequest();
-        switch($controller[1]) {
+
+        switch ($controller[1]) {
             case 'getDispatchConfirmationLabels':
             case 'getDispatchConfirmationReceipt':
                 $dispatchConfirmation = $this->getDispatchConfirmation($request);
-                if (! $dispatchConfirmation) {
+                if (!$dispatchConfirmation) {
                     throw new NotFoundResourceException('Required Dispatch Confirmation could not be found.');
                 }
                 $request->attributes->set('dispatchConfirmation', $dispatchConfirmation);
                 break;
             case 'getConsignmentLabel':
                 $consignment = $this->consignmentRepository->getConsignment($request->get('consignmentId'));
-                if (! $consignment) {
+                if (!$consignment) {
                     throw new NotFoundResourceException('Required Consignment could not be found.');
                 }
 
@@ -100,8 +117,10 @@ class PrintRequestFilter implements EventSubscriberInterface
     private function getDispatchConfirmation(Request $request)
     {
         $vendor = $this->vendorRepository->getVendor($request->get('vendorCode'));
-        if (! $vendor) {
-            throw new ResourceNotFoundException('Required Vendor "%s" could not be found.', $request->get('vendorCode'));
+        if (!$vendor) {
+            throw new ResourceNotFoundException(
+                sprintf('Required Vendor "%s" could not be found.', $request->get('vendorCode'))
+            );
         }
 
         $number = $request->get('number');

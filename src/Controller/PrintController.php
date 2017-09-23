@@ -8,6 +8,7 @@
 
 namespace Webit\Bundle\ShipmentBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use Webit\Shipment\Consignment\ConsignmentInterface;
 use Webit\Shipment\Consignment\DispatchConfirmationInterface;
 use Webit\Shipment\Manager\PrintManagerInterface;
@@ -60,10 +61,15 @@ class PrintController
     private function createResponse(\SplFileInfo $file, $filename, $mode)
     {
         $response = new Response();
+
         $response->setContent(file_get_contents($file->getPathname()));
 
-        $response->headers->set('Content-Type', 'application/pdf; charset=binary',true);
-        $response->headers->set('Content-Disposition', ($mode =='download' ? 'attachment' : 'inline').'; filename='.$filename,true);
+        $response->headers->set('Content-Type', 'application/pdf; charset=binary', true);
+        $response->headers->set(
+            'Content-Disposition',
+            ($mode == 'download' ? 'attachment' : 'inline') . '; filename=' . $filename,
+            true
+        );
 
         return $response;
     }
