@@ -101,7 +101,7 @@ class SyncOpenedConsignmentsStatusesCommand extends ContainerAwareCommand
     private function updateReport(array $report, ArrayCollection $consignments)
     {
         foreach ($consignments as $consignment) {
-            $consignment['current'] = $consignment->getStatus();
+            $report[$consignment->getId()]['current'] = $consignment->getStatus();
             foreach ($consignment->getParcels() as $parcel) {
                 $report[$consignment->getId()]['parcels'][$parcel->getNumber()][1] = $parcel->getStatus();
             }
