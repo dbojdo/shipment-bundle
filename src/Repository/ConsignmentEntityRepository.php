@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Webit\Shipment\Consignment\ConsignmentInterface;
 use Webit\Shipment\Consignment\ConsignmentRepositoryInterface;
+use Webit\Shipment\Consignment\ConsignmentStatusList;
 use Webit\Shipment\Parcel\ParcelInterface;
 use Webit\Tools\Data\FilterCollection;
 use Webit\Tools\Data\SorterCollection;
@@ -21,8 +22,7 @@ use Webit\Tools\Data\SorterCollection;
 class ConsignmentEntityRepository extends EntityRepository implements ConsignmentRepositoryInterface
 {
     /**
-     * @param mixed $id
-     * @return ConsignmentInterface
+     * @inheritdoc
      */
     public function getConsignment($id)
     {
@@ -40,7 +40,9 @@ class ConsignmentEntityRepository extends EntityRepository implements Consignmen
     ) {
 
         // TODO: filter / sorter support
-        return $this->findBy(array(), array(), $limit, $offset);
+        $results = $this->findBy(array(), array(), $limit, $offset);
+
+        return new ArrayCollection($results);
     }
 
     /**
@@ -67,6 +69,31 @@ class ConsignmentEntityRepository extends EntityRepository implements Consignmen
             $this->_em->persist($consignment);
         }
         $this->_em->flush();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getOpenedConsignments(\DateTime $dateFrom, \DateTime $dateTo)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->where($qb->expr()->in('c.status', ConsignmentStatusList::openedStatuses()));
+        $qb->innerJoin(
+            'c.dispatchConfirmation',
+            'dc',
+            'WITH',
+            $qb->expr()->andX(
+                $qb->expr()->gt('dc.dispatchedAt', ':dateFrom'),
+                $qb->expr()->lte('dc.dispatchedAt', ':dateTo')
+            )
+        );
+
+        $qb->setParameter('dateFrom', $dateFrom);
+        $qb->setParameter('dateTo', $dateTo);
+
+        $consignments = $qb->getQuery()->execute();
+
+        return new ArrayCollection($consignments);
     }
 
     /**
