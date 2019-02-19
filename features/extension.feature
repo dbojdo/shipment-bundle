@@ -16,6 +16,7 @@ Feature: WebitShipmentBundle - Service container extension
 
     framework:
         secret: secret-token
+        translator: ~
 
     doctrine:
         dbal:

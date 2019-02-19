@@ -8,7 +8,7 @@ namespace Webit\Bundle\ShipmentBundle\Listener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Webit\Bundle\ShipmentBundle\Entity\Consignment;
 use Webit\Shipment\Vendor\VendorRepositoryInterface;
 
@@ -16,8 +16,9 @@ use Webit\Shipment\Vendor\VendorRepositoryInterface;
  * Class ConsignmentVendorFetcherSubscriber
  * @author Daniel Bojdo <daniel.bojdo@web-it.eu>
  */
-class ConsignmentVendorFetcherSubscriber extends ContainerAware implements EventSubscriber
+class ConsignmentVendorFetcherSubscriber implements EventSubscriber
 {
+    use ContainerAwareTrait;
 
     /**
      * @return VendorRepositoryInterface
