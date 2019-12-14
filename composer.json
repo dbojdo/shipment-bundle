@@ -17,7 +17,7 @@
         "symfony/symfony": "^2.5|^3.0",
         "doctrine/doctrine-bundle": "^1.4",
         "doctrine/orm": "^2.4",
-        "webit/shipment": "^2.0.0"
+        "webit/shipment": "^3.0.0"
     },
     "require-dev": {
         "webit/test-tools": "*",
@@ -43,7 +43,8 @@
     "extra": {
         "branch-alias": {
             "dev-1.x": "1.x-dev",
-            "dev-master": "2.x-dev"
+            "dev-2.x": "2.x-dev",
+            "dev-master": "3.x-dev"
         }
     }
 }

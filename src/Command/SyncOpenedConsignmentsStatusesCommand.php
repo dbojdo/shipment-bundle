@@ -122,7 +122,7 @@ class SyncOpenedConsignmentsStatusesCommand extends ContainerAwareCommand
             $output->writeln(
                 sprintf(
                     'Consignment <info>%s:%s</info> (ID: <info>%s</info>): <info>%s</info> -> <info>%s</info>',
-                    $consignment->getVendor()->getName(),
+                    $consignment->getVendor(),
                     $consignment->getVendorId(),
                     $consignment->getId(),
                     $entry['previous'],

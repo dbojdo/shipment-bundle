@@ -8,7 +8,6 @@
         <parameter key="webit_shipment.repository.vendor.factory.class">Webit\Shipment\Vendor\VendorRepositoryFactory</parameter>
         <parameter key="webit_shipment.repository.vendor.in_memory.class">Webit\Shipment\Vendor\VendorRepositoryInMemory</parameter>
         <parameter key="webit_shipment.repository.vendor.cached.class">Webit\Shipment\Vendor\VendorRepositoryCached</parameter>
-        <parameter key="webit_shipment.repository.vendor_repository_initialize_subscriber.class">Webit\Bundle\ShipmentBundle\Listener\VendorRepositoryInitializeSubscriber</parameter>
     </parameters>
     <services>
         <service
@@ -21,10 +20,7 @@
         >
             <factory service="webit_shipment.repository.vendor.factory" method="createInMemoryRepository" />
         </service>
-        <service
-                id="webit_shipment.repository.vendor.cached"
-                class="%webit_shipment.repository.vendor.cached.class%"
-        >
+        <service id="webit_shipment.repository.vendor.cached" class="%webit_shipment.repository.vendor.cached.class%">
             <factory service="webit_shipment.repository.vendor.factory" method="createCachedRepository" />
             <argument type="service" id="webit_shipment.vendor_cache" />
         </service>

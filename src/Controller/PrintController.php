@@ -30,9 +30,8 @@ class PrintController
     {
         $receipt = $this->printManager->getDispatchConfirmationReceipt($dispatchConfirmation);
         $consignment = $dispatchConfirmation->getConsignments()->first();
-        $vendor = $consignment->getVendor();
 
-        $filename = sprintf('%s_%s.pdf', $vendor->getCode(), $dispatchConfirmation->getNumber());
+        $filename = sprintf('%s_%s.pdf', $consignment->getVendor(), $dispatchConfirmation->getNumber());
 
         return $this->createResponse($receipt, $filename, $mode);
     }
@@ -41,9 +40,8 @@ class PrintController
     {
         $labels = $this->printManager->getDispatchConfirmationLabels($dispatchConfirmation);
         $consignment = $dispatchConfirmation->getConsignments()->first();
-        $vendor = $consignment->getVendor();
 
-        $filename = sprintf('%s_%s_labels.pdf', $vendor->getCode(), $dispatchConfirmation->getNumber());
+        $filename = sprintf('%s_%s_labels.pdf', $consignment->getVendor(), $dispatchConfirmation->getNumber());
 
         return $this->createResponse($labels, $filename, $mode);
     }
@@ -51,9 +49,8 @@ class PrintController
     public function getConsignmentLabel(ConsignmentInterface $consignment, $mode = 'show')
     {
         $label = $this->printManager->getConsignmentLabel($consignment);
-        $vendor = $consignment->getVendor();
 
-        $filename = sprintf('%s_%s_label.pdf', $vendor->getCode(), $consignment->getVendorId());
+        $filename = sprintf('%s_%s_label.pdf', $consignment->getVendor(), $consignment->getVendorId());
 
         return $this->createResponse($label, $filename, $mode);
     }

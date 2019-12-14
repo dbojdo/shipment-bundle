@@ -8,7 +8,6 @@
         <parameter key="webit_shipment.repository.consignment.class">Webit\Bundle\ShipmentBundle\Repository\ConsignmentEntityRepository</parameter>
         <parameter key="webit_shipment.repository.parcel.class">Webit\Bundle\ShipmentBundle\Repository\ParcelEntityRepository</parameter>
         <parameter key="webit_shipment.repository.dispatch_confirmation.class">Webit\Bundle\ShipmentBundle\Repository\DispatchConfirmationEntityRepository</parameter>
-        <parameter key="webit_shipment.subscriber.consignment_vendor_fetcher.class">Webit\Bundle\ShipmentBundle\Listener\ConsignmentVendorFetcherSubscriber</parameter>
     </parameters>
     <services>
         <service
@@ -34,16 +33,6 @@
             <factory service="doctrine" method="getRepository" />
             <!-- Replaced by ResolveTargetEntityPass -->
             <argument>Webit\Shipment\Consignment\DispatchConfirmationInterface</argument>
-        </service>
-        <service
-                id="webit_shipment.subscriber.consignment_vendor_fetcher"
-                class="%webit_shipment.subscriber.consignment_vendor_fetcher.class%"
-                >
-            <argument type="service" id="webit_shipment.repository.vendor"/>
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-            <tag name="doctrine.event_subscriber"/>
         </service>
     </services>
 </container>
