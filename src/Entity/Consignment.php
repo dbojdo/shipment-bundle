@@ -15,40 +15,12 @@ use Webit\Shipment\Vendor\VendorInterface;
  */
 class Consignment extends BaseConsignment
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $id;
-
-    /**
-     * @var string
-     */
-    protected $vendorCode;
 
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param VendorInterface $vendor
-     */
-    public function setVendor(VendorInterface $vendor)
-    {
-        parent::setVendor($vendor);
-        $this->updateVendorCode();
-    }
-
-    public function onPostLoad()
-    {
-        if (! $this->vendor) {
-            $this->vendor = $this->vendorCode;
-        }
-    }
-
-    public function updateVendorCode()
-    {
-        $this->vendorCode = $this->vendor ? $this->vendor->getCode() : null;
     }
 }
  

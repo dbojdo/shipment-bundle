@@ -18,17 +18,11 @@
             <unique-constraint columns="vendor,vendor_id" name="vendor_vendor_id_unq" />
         </unique-constraints>
 
-        <lifecycle-callbacks>
-            <lifecycle-callback type="prePersist" method="updateVendorCode"/>
-            <lifecycle-callback type="preUpdate" method="updateVendorCode"/>
-            <lifecycle-callback type="postLoad" method="onPostLoad"/>
-        </lifecycle-callbacks>
-
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="vendorCode" type="string" column="vendor" length="32" nullable="false" />
+        <field name="vendor" type="string" column="vendor" length="32" nullable="false" />
         <field name="vendorId" type="string" column="vendor_id" length="64" nullable="true" />
         <field name="vendorOptions" type="webit_shipment.vendor_option_value_collection" column="vendor_options" nullable="true" />
         <field name="vendorStatus" type="string" column="vendor_status" length="32" nullable="true" />
