@@ -38,6 +38,9 @@ class VendorAdapterPass implements CompilerPassInterface
                     throw new \UnexpectedValueException('Missing mandatory tag key "vendor"');
                 }
 
+                $adapterDefinition = $container->findDefinition($adapter);
+                $adapterDefinition->setLazy(true);
+
                 $provider->addMethodCall('registerVendorAdapter', array(new Reference($adapter), $vendor));
                 $vendorRepositoryFactory->addMethodCall('addVendorFactory', array(new Reference($adapter), $vendor));
             }
