@@ -26,7 +26,12 @@ class DispatchConfirmationEntityRepository extends EntityRepository implements D
         $qb = $this->createQueryBuilder('dc');
 
         $qb->select('dc');
-        $qb->innerJoin('dc.consignments', 'c', 'WITH', $qb->expr()->eq('c.vendorCode', ':vendor'));
+        $qb->innerJoin(
+            'dc.consignments',
+            'c',
+            'WITH',
+            $qb->expr()->eq('c.vendor', ':vendor')
+        );
         $qb->where($qb->expr()->eq('dc.number', ':number'));
         $qb->setMaxResults(1);
 

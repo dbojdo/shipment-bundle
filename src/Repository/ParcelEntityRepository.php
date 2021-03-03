@@ -27,16 +27,21 @@ class ParcelEntityRepository extends EntityRepository implements ParcelRepositor
         $qb = $this->createQueryBuilder('p');
 
         $qb->select('p', 'c', 'dc');
-            $qb->leftJoin('p.consignment', 'c');
+            $qb->innerJoin(
+                'p.consignment',
+                'c',
+                'WITH',
+                $qb->expr()->eq('c.vendor',':vendor')
+            );
             $qb->leftJoin('c.dispatchConfirmation', 'dc');
         $qb->where($qb->expr()->eq('p.number', ':number'))
-            ->andWhere($qb->expr()->eq('p.vendorCode',':vendorCode'));
+            ->andWhere();
         $qb->setMaxResults(1);
 
         $query = $qb->getQuery();
         $query->setParameters(array(
             'number' => $number,
-            'vendorCode' => $vendor->getCode()
+            'vendor' => $vendor->getCode()
         ));
 
         return $query->getOneOrNullResult();
