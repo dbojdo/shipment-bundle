@@ -52,10 +52,16 @@ final class ChangeConsignmentStatusCommand extends Command
             return 1;
         }
 
+        $previousStatus = $consignment->getStatus();
         $this->consignmentManager->changeConsignmentStatus($consignment, $status = $input->getArgument('status'));
 
         $output->writeln(
-            'The status of consignment of ID <info>"%s"</info> has been changed from <info>"%s"</info> to <info>"%s"</info>.'
+            sprintf(
+                'The status of consignment of ID <info>"%s"</info> has been changed from <info>"%s"</info> to <info>"%s"</info>.',
+                $consignmentId,
+                $previousStatus,
+                $status
+            )
         );
 
         return 0;
