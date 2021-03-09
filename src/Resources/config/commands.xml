@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service id="webit_shipment.command.sync_opened_consignments_statuses" class="Webit\Bundle\ShipmentBundle\Command\SyncOpenedConsignmentsStatusesCommand">
+            <argument type="service" id="webit_shipment.consignment_manager" />
+            <argument type="service" id="webit_shipment.repository.consignment" />
+            <tag name="console.command" />
+        </service>
+
+        <service id="webit_shipment.command.change_consignment_status" class="Webit\Bundle\ShipmentBundle\Command\ChangeConsignmentStatusCommand">
+            <argument type="service" id="webit_shipment.consignment_manager" />
+            <argument type="service" id="webit_shipment.repository.consignment" />
+            <tag name="console.command" />
+        </service>
+    </services>
+</container>

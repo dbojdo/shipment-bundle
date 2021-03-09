@@ -57,6 +57,7 @@ class WebitShipmentExtension extends Extension
         }
 
         $loader->load('print_controller.xml');
+        $loader->load('commands.xml');
     }
 
     private function setEntityMap(ContainerBuilder $container, array $entityConfig)

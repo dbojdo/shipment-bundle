@@ -3,7 +3,7 @@
 namespace Webit\Bundle\ShipmentBundle\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -11,8 +11,23 @@ use Webit\Shipment\Consignment\ConsignmentInterface;
 use Webit\Shipment\Consignment\ConsignmentRepositoryInterface;
 use Webit\Shipment\Manager\ConsignmentManagerInterface;
 
-class SyncOpenedConsignmentsStatusesCommand extends ContainerAwareCommand
+final class SyncOpenedConsignmentsStatusesCommand extends Command
 {
+    /** @var ConsignmentManagerInterface */
+    private $consignmentManager;
+
+    /** @var ConsignmentRepositoryInterface */
+    private $consignmentRepository;
+
+    public function __construct(
+        ConsignmentManagerInterface $consignmentManager,
+        ConsignmentRepositoryInterface $consignmentRepository
+    ) {
+        parent::__construct();
+        $this->consignmentManager = $consignmentManager;
+        $this->consignmentRepository = $consignmentRepository;
+    }
+
     protected function configure()
     {
         parent::configure();
@@ -30,32 +45,17 @@ class SyncOpenedConsignmentsStatusesCommand extends ContainerAwareCommand
     {
         list($dateFrom, $dateTo) = $this->extractDates($input);
 
-        $consignmentRepository = $this->consignmentRepository();
-        $consignments = $consignmentRepository->getOpenedConsignments($dateFrom, $dateTo);
+        $consignments = $this->consignmentRepository->getOpenedConsignments($dateFrom, $dateTo);
 
         $report = $this->initReport($consignments);
 
-        $this->consignmentManager()->synchronizeConsignmentsStatus($consignments);
+        $this->consignmentManager->synchronizeConsignmentsStatus($consignments);
 
         $report = $this->updateReport($report, $consignments);
 
         $this->printReport($report, $output);
-    }
 
-    /**
-     * @return object|ConsignmentRepositoryInterface
-     */
-    private function consignmentRepository()
-    {
-        return $this->getContainer()->get('webit_shipment.repository.consignment');
-    }
-
-    /**
-     * @return object|ConsignmentManagerInterface
-     */
-    private function consignmentManager()
-    {
-        return $this->getContainer()->get('webit_shipment.manager');
+        return 0;
     }
 
     /**

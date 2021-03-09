@@ -54,7 +54,7 @@ Feature: WebitShipmentBundle - Service container extension
     webit_shipment.repository.vendor.in_memory, webit_shipment.repository.vendor.factory,
     webit_shipment.repository.vendor.cached,
     webit_shipment.repository.consignment, webit_shipment.repository.parcel,
-    webit_shipment.repository.dispatch_confirmation, webit_shipment.subscriber.consignment_vendor_fetcher,
+    webit_shipment.repository.dispatch_confirmation,
     webit_shipment.tracking_url_provider.default
     """
     And there should be following aliases defined:

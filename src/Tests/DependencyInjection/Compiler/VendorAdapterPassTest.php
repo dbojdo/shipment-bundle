@@ -39,7 +39,7 @@ class VendorAdapterPassTest extends \PHPUnit_Framework_TestCase
 
         $container->expects($this->at(1))
             ->method('getDefinition')
-            ->with($this->equalTo('webit_shipment.repository.vendor.in_memory_factory'))
+            ->with($this->equalTo('webit_shipment.repository.vendor.factory'))
             ->willReturn($factory);
 
         $this->container = $container;
